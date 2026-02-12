@@ -1,0 +1,16 @@
+{
+  "name": "trending-intel",
+  "version": "0.1.0",
+  "private": false,
+  "description": "AI-powered GitHub trending analysis — daily intelligence on what the open source world is building",
+  "author": "LFX AI LLC <alex@lfxai.dev>",
+  "license": "MIT",
+  "scripts": {
+    "dev:worker": "cd worker && npx wrangler dev",
+    "dev:dashboard": "cd dashboard && npm run dev",
+    "deploy:worker": "cd worker && npx wrangler deploy --env production",
+    "deploy:dashboard": "cd dashboard && npm run build && npx wrangler pages deploy dist --project-name=trending-intel",
+    "db:migrate": "cd worker && npx wrangler d1 execute trending-intel-db --file=../schema.sql --remote",
+    "install:all": "npm install && cd worker && npm install && cd ../dashboard && npm install"
+  }
+}
