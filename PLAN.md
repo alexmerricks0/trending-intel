@@ -8,19 +8,19 @@ Daily AI-powered GitHub trending analysis. A Cloudflare Worker runs on a cron sc
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│  Cloudflare Worker (trending-intel-worker)           │
-│                                                      │
-│  Cron Trigger (06:00 UTC daily)                      │
-│    ├── 1. Fetch GitHub trending (today + this week)  │
-│    ├── 2. Send to Claude Haiku for analysis          │
-│    ├── 3. Store structured result in D1              │
-│    └── 4. Done                                       │
-│                                                      │
-│  API Routes (serves dashboard)                       │
-│    ├── GET /api/today        → today's analysis      │
-│    ├── GET /api/history      → past 30 days          │
-│    ├── GET /api/weekly       → weekly summary         │
-│    └── GET /api/health       → health check          │
+│  Cloudflare Worker (trending-intel-worker)          │
+│                                                     │
+│  Cron Trigger (06:00 UTC daily)                     │
+│    ├── 1. Fetch GitHub trending (today + this week) │
+│    ├── 2. Send to Claude Haiku for analysis         │
+│    ├── 3. Store structured result in D1             │
+│    └── 4. Done                                      │
+│                                                     │
+│  API Routes (serves dashboard)                      │
+│    ├── GET /api/today        → today's analysis     │
+│    ├── GET /api/history      → past 30 days         │
+│    ├── GET /api/weekly       → weekly summary       │
+│    └── GET /api/health       → health check         │
 └─────────────────────────────────────────────────────┘
          ↕                          ↕
     D1 Database              Cloudflare Pages
