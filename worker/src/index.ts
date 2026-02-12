@@ -9,7 +9,7 @@ import { analyzeTrending, type AnalysisResult } from './claude';
 
 export interface Env {
   DB: D1Database;
-  ANTHROPIC_API_KEY: string;
+  OPENROUTER_API_KEY: string;
   GITHUB_TOKEN: string;
   ALLOWED_ORIGINS: string;
   ENVIRONMENT: string;
@@ -107,7 +107,7 @@ async function runAnalysis(env: Env): Promise<void> {
 
   // Step 2: Analyze with Claude
   console.log('Analyzing with Claude...');
-  const { analysis, tokensUsed } = await analyzeTrending(repos, env.ANTHROPIC_API_KEY);
+  const { analysis, tokensUsed } = await analyzeTrending(repos, env.OPENROUTER_API_KEY);
   console.log(`Analysis complete, ${tokensUsed} tokens used`);
 
   // Step 3: Store analysis

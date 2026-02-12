@@ -27,5 +27,5 @@ database_name = "trending-intel-db"
 database_id = "9ea57621-6989-44a3-8444-7196cfb2c4b2"
 
 # Secrets (set via wrangler secret put):
-# ANTHROPIC_API_KEY
-# GITHUB_TOKEN
+# OPENROUTER_API_KEY
+# GITHUB_TOKEN (optional)

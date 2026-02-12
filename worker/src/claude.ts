@@ -1,6 +1,6 @@
 /**
- * Claude API client
- * Raw fetch to Anthropic Messages API (no SDK for smaller bundle)
+ * AI analysis client
+ * Raw fetch to OpenRouter API (OpenAI-compatible format)
  */
 
 import type { GitHubRepo } from './github';
@@ -23,9 +23,9 @@ export interface AnalysisResult {
   pattern: string;
 }
 
-interface AnthropicResponse {
-  content: Array<{ type: string; text: string }>;
-  usage: { input_tokens: number; output_tokens: number };
+interface OpenRouterResponse {
+  choices: Array<{ message: { content: string } }>;
+  usage: { prompt_tokens: number; completion_tokens: number; total_tokens: number };
 }
 
 export async function analyzeTrending(
@@ -71,29 +71,32 @@ Rules:
 - Empty categories should be omitted
 - Be direct and opinionated in summaries`;
 
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
+  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
+      'Authorization': `Bearer ${apiKey}`,
+      'HTTP-Referer': 'https://trending.lfxai.dev',
+      'X-Title': 'Trending Intel',
     },
     body: JSON.stringify({
-      model: 'claude-haiku-4-5-20251001',
+      model: 'anthropic/claude-3.5-haiku',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt },
+      ],
       max_tokens: 4096,
-      system: systemPrompt,
-      messages: [{ role: 'user', content: userPrompt }],
     }),
   });
 
   if (!response.ok) {
     const errorBody = await response.text();
-    throw new Error(`Anthropic API error ${response.status}: ${errorBody}`);
+    throw new Error(`OpenRouter API error ${response.status}: ${errorBody}`);
   }
 
-  const data: AnthropicResponse = await response.json();
-  const text = data.content[0].text;
-  const tokensUsed = data.usage.input_tokens + data.usage.output_tokens;
+  const data: OpenRouterResponse = await response.json();
+  const text = data.choices[0].message.content;
+  const tokensUsed = data.usage.total_tokens;
 
   // Parse JSON, handling potential markdown wrapping
   let jsonText = text.trim();
