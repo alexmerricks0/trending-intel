@@ -56,3 +56,12 @@ export async function fetchHistory(days = 30): Promise<{ data: HistoryItem[] }> 
   if (!res.ok) throw new Error('Failed to fetch history');
   return res.json();
 }
+
+export async function subscribe(email: string): Promise<{ status?: string; error?: string }> {
+  const res = await fetch(`${API_BASE}/api/subscribe`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email }),
+  });
+  return res.json();
+}

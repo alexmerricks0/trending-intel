@@ -1,10 +1,14 @@
+import { NewsletterSignup } from './NewsletterSignup';
+
 export function Footer() {
   return (
-    <footer className="border-t border-border max-w-5xl mx-auto px-4 sm:px-6 py-6 flex items-center justify-between">
-      <p className="font-mono text-xs text-text-dim tracking-wider">
-        &copy; {new Date().getFullYear()} LFX AI LLC
-      </p>
-      <div className="flex gap-4">
+    <footer className="border-t border-border max-w-5xl mx-auto px-4 sm:px-6 py-6 space-y-4">
+      <NewsletterSignup compact />
+      <div className="flex items-center justify-between">
+        <p className="font-mono text-xs text-text-dim tracking-wider">
+          &copy; {new Date().getFullYear()} LFX AI LLC
+        </p>
+        <div className="flex gap-4">
         <a
           href="https://github.com/alexmerricks0/trending-intel"
           target="_blank"
@@ -21,6 +25,7 @@ export function Footer() {
         >
           lfxai.dev
         </a>
+        </div>
       </div>
     </footer>
   );

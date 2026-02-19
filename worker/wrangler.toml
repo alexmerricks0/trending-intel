@@ -3,7 +3,7 @@ main = "src/index.ts"
 compatibility_date = "2024-12-01"
 
 [triggers]
-crons = ["0 6 * * *"]
+crons = ["0 6 * * *", "0 10 * * 1"]
 
 [[d1_databases]]
 binding = "DB"
@@ -13,6 +13,9 @@ database_id = "9ea57621-6989-44a3-8444-7196cfb2c4b2"
 [vars]
 ENVIRONMENT = "development"
 ALLOWED_ORIGINS = "http://localhost:5173,https://trending.lfxai.dev,https://trending-intel.pages.dev"
+SITE_NAME = "Trending Intel"
+SITE_URL = "https://trending.lfxai.dev"
+SENDER_EMAIL = "alex@lfxai.dev"
 
 [env.production]
 name = "trending-intel-worker"
@@ -20,6 +23,9 @@ name = "trending-intel-worker"
 [env.production.vars]
 ENVIRONMENT = "production"
 ALLOWED_ORIGINS = "https://trending.lfxai.dev,https://trending-intel.pages.dev"
+SITE_NAME = "Trending Intel"
+SITE_URL = "https://trending.lfxai.dev"
+SENDER_EMAIL = "alex@lfxai.dev"
 
 [[env.production.d1_databases]]
 binding = "DB"
@@ -29,3 +35,5 @@ database_id = "9ea57621-6989-44a3-8444-7196cfb2c4b2"
 # Secrets (set via wrangler secret put):
 # OPENROUTER_API_KEY
 # GITHUB_TOKEN (optional)
+# TRIGGER_SECRET (for manual /api/trigger endpoint)
+# RESEND_API_KEY

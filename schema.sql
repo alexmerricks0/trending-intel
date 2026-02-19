@@ -37,3 +37,16 @@ CREATE INDEX IF NOT EXISTS idx_analyses_date ON daily_analyses(date);
 CREATE INDEX IF NOT EXISTS idx_repos_date ON trending_repos(date);
 CREATE INDEX IF NOT EXISTS idx_repos_category ON trending_repos(category);
 CREATE INDEX IF NOT EXISTS idx_repos_name ON trending_repos(repo_full_name);
+
+-- Newsletter subscribers
+CREATE TABLE IF NOT EXISTS subscribers (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email TEXT NOT NULL UNIQUE,
+  token TEXT NOT NULL UNIQUE,
+  status TEXT NOT NULL DEFAULT 'active',
+  subscribed_at TEXT NOT NULL DEFAULT (datetime('now')),
+  unsubscribed_at TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_subscribers_status ON subscribers(status);
+CREATE INDEX IF NOT EXISTS idx_subscribers_token ON subscribers(token);
